@@ -1,0 +1,9 @@
+version: "2"
+services:
+  tls:
+    image: tmp/tls:latest
+    ports:
+     - "5000:443"
+    environment:
+     - JAVA_OPTS=-Djavax.net.debug=all
+
