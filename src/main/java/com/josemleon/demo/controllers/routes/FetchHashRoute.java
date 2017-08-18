@@ -27,15 +27,16 @@ public class FetchHashRoute implements Route, ExitRoute {
         this.gson = new Gson();
     }
 
-    private String execute(Response response, String hash) {
+    private String execute(Response res, String hash) {
 
         String result;
         result = this.myMap.get(hash.toLowerCase());
         if (result == null) {
-            response.status(HttpStatus.NOT_FOUND_404);
+            res.status(HttpStatus.NOT_FOUND_404);
             return this.gson.toJson(new ErrorMessage("Message Not Found"));
         }
 
+        res.status(HttpStatus.OK_200);
         return this.gson.toJson(new MessageResponse(result));
     }
 

@@ -4,7 +4,6 @@ import com.josemleon.demo.models.Sha256;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -29,26 +28,18 @@ public class CreateHashContext implements Sha256 {
                 MessageDigest
                         .getInstance("SHA-256")
                         .digest(
-                                this.message
-                                        .toLowerCase()
-                                        .getBytes("UTF-8")
+                                this.message.getBytes("UTF-8")
                         )
-        );
+        ).toLowerCase();
     }
 
-    @Override
-    public String from256() {
-        StringBuilder sb = new StringBuilder();
-        for (byte byt : this.message.getBytes((StandardCharsets.UTF_8))) {
-            sb.append(Integer.toString((byt & 0xff) + 0x100, 16).substring(1));
-        }
-
-        return sb.toString();
+    public void toLowercase() {
+        this.message = this.message.toLowerCase();
     }
 
     // privates
 
-    private String  bytesToHex(byte[] hash) {
+    private String bytesToHex(byte[] hash) {
         return DatatypeConverter.printHexBinary(hash);
     }
 }

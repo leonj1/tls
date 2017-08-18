@@ -9,5 +9,4 @@ import java.security.NoSuchAlgorithmException;
  **/
 public interface Sha256 {
     String to256() throws UnsupportedEncodingException, NoSuchAlgorithmException;
-    String from256();
 }

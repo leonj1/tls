@@ -38,12 +38,14 @@ public class CreateHashRoute implements Route, ExitRoute {
         String converted = null;
 
         try {
+            context.toLowercase();
             converted = context.to256();
-            this.myMap.put(converted.toLowerCase(), context.getMessage());
+            this.myMap.put(converted, context.getMessage());
         } catch (Exception e) {
             return this.exit(res, HttpStatus.BAD_REQUEST_400, "unable to convert", null);
         }
 
+        res.status(HttpStatus.CREATED_201);
         return this.gson.toJson(new DigestResponse(converted));
     }
 
