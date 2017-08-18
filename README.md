@@ -27,3 +27,12 @@ All tests passed!
 - Benchmark testing to find the breaking point of concurrent requests
 ```
 
+# LIMITATIONS
+```
+Current implementation uses a ConcurrentHashMap to store hashes.
+This is to ensure atomicity when handling separate requests at the same time.
+
+Limitation 1. the map lives in this single instance of the JVM and data store is not replicated across other JVMs. Therefore horizontal scaling not possible for reads.
+A: Consider Redis or memcache to store hashes. This should allow other instances of this app to be aware of new hashes.
+Limitation 2. As-is, this app is responsible for lookups in the Map. Read can be improved by placing a CDN / Varnish cache ahead of this process to store read requests. Add some sane cache expiry.
+```
