@@ -29,7 +29,9 @@ public class CreateHashContext implements Sha256 {
                 MessageDigest
                         .getInstance("SHA-256")
                         .digest(
-                                this.message.getBytes("UTF-8")
+                                this.message
+                                        .toLowerCase()
+                                        .getBytes("UTF-8")
                         )
         );
     }
